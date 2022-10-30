@@ -1,5 +1,11 @@
 import React from "react";
+import { useContext, useState, useEffect } from 'react';
 import styled from "styled-components";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { PATHS } from '../constants';
+import TimerBtn from "../components/generic/TimerBtn";
+
+import { TimerContext } from '../components/timers/TimerProvider';
 
 import Stopwatch from "../components/timers/Stopwatch";
 import Countdown from "../components/timers/Countdown";
@@ -28,22 +34,63 @@ const TimerTitle = styled.div`
 `;
 
 const WorkoutView = () => {
+  const navigate = useNavigate();
+
+  const { count, setCount, isPaused, setPaused, isStopped, setStopped, activeTimerIdx } = useContext(TimerContext);
+
+  //*** these values ultimately passed in from AddPost 
+
+  /* Stopwatch
+  const startVal = 0;
+  const endVal = 5;
+  */
+
+  /* Countdown
+  const startVal = 8;
+  const endVal = 0;
+   */
+
+  /* XY */
+  const startVal = 10;
+  const endVal = 0;
+  
+
   const timers = [
-    { title: "Stopwatch", C: <Stopwatch /> },
-    { title: "Countdown", C: <Countdown /> },
-    { title: "XY", C: <XY /> },
-    { title: "Tabata", C: <Tabata /> },
+  /*
+    { title: "Stopwatch", component: Stopwatch, seconds: 5 },
+    { title: "Stopwatch", component: Stopwatch, seconds: 5 },
+    { title: "Countdown", component: Countdown, seconds: 8 },
+    { title: "XY", component: XY, seconds: 10, rounds: 3 },
+  */
+    { title: "Tabata", component: Tabata, seconds: 10, round: 3, interval: 5 },
   ];
 
+  const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
   return (
-    <Timers> {/* styling */}
-      {timers.map((timer) => (
-        <Timer key={`timer-${timer.title}`}>
-          <TimerTitle>{timer.title}</TimerTitle> {/* styling */}
-          {timer.C}
-        </Timer>
-      ))}
-    </Timers>
+    <>
+      <div className="control-btn-wrapper">
+        {isStopped &&
+          <TimerBtn label="Start" handler={() => { 
+            setCount(startVal); 
+            setStopped(false); 
+            setPaused(false); }}
+          />
+        }
+        {!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+        <TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
+        <TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
+      </div>
+      <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
+      <Timers>
+        {timers.map((timerData, idx) => (
+          <Timer key={`timer-${timerData.title}-${idx}`}>
+            <TimerTitle>{timerData.title}</TimerTitle>
+            <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
+          </Timer>
+        ))}
+      </Timers>
+    </>
   );
 };
 

@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 {/* import { usePersistedState } from '../hooks'; */}
-export const TimerContext = React.createContext({});
+export const TimerContext = createContext({});
 
 const TimerProvider = ({ children }) => {
-  // const [posts, setPosts] = usePersistedState('posts', []);
-  // const [selectedPostId, setSelectedPostId] = usePersistedState('selectedPostId', null);
+  const [count, setCount] = useState(0);
+  const [round, setRound] = useState(0);
+  const [interval, setInterv] = useState(0);
+
+  //*** active timer by index
+  const [activeTimerIdx, setActiveTimerIdx] = useState(0);
+
+  const [isPaused, setPaused] = useState(false);
+  const [isStopped, setStopped] = useState(true);
 
   return (
     <TimerContext.Provider
       value={{
+        foo: ()=>console.log('*** foo ***'),
+        count, 
+        setCount,
+        round,
+        setRound,
+        interval,
+        setInterv,
+        isPaused,
+        setPaused,
+        isStopped,
+        setStopped,
+        activeTimerIdx,
+        setActiveTimerIdx
       }}
     >
       {children}

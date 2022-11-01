@@ -4,11 +4,14 @@ import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
 
 
-const InnerStopwatch = ({ seconds }) => {
-	const { count, setCount, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx } = useContext(TimerContext);
+const InnerStopwatch = ({ startVal, endVal }) => {
+	const {  count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
 
+ console.log('**** startVal', startVal, 'count', count);
+/*
 	const startVal = 0,
 		endVal = seconds;
+ */
 
 	useEffect(() => {
 		let t;
@@ -21,9 +24,13 @@ const InnerStopwatch = ({ seconds }) => {
 			}
 
 			if (count == endVal) {
-				//setStopped(true);
-				setActiveTimerIdx(activeTimerIdx+1);
-				setCount(0);
+		console.log('timers', timers);
+				if (activeTimerIdx+1 < timers.length) {
+				  setCount(timers[activeTimerIdx+1].startVal);
+				  setActiveTimerIdx(activeTimerIdx+1);
+				} else {
+				  setStopped(true);
+				}
 			}
 		}
 
@@ -38,16 +45,16 @@ const InnerStopwatch = ({ seconds }) => {
 	);
 }
 
-const Stopwatch = ({ seconds, isRunning=false }) => {
+const Stopwatch = ({ startVal, endVal, isRunning=false }) => {
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={0} />
+				<DisplayTime label="Count" count={endVal} />
 			</div>
 		);
 	}
 
-	return <InnerStopwatch seconds={seconds} />
+	return <InnerStopwatch startVal={startVal} endVal={endVal} />
 }
 
 export default Stopwatch;

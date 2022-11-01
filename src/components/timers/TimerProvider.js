@@ -1,5 +1,10 @@
 import React, { useState, createContext } from 'react';
+
+import { timers } from '../../views/WorkoutView';
+
 {/* import { usePersistedState } from '../hooks'; */}
+
+
 export const TimerContext = createContext({});
 
 const TimerProvider = ({ children }) => {
@@ -28,7 +33,8 @@ const TimerProvider = ({ children }) => {
         isStopped,
         setStopped,
         activeTimerIdx,
-        setActiveTimerIdx
+        setActiveTimerIdx,
+        timers
       }}
     >
       {children}

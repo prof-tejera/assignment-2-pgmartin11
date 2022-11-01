@@ -33,6 +33,18 @@ const TimerTitle = styled.div`
   font-weight: 600;
 `;
 
+// this will need to be a ref
+
+export const timers = [
+  { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 5 },
+/*  { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 8 }, */
+  { title: "Countdown", component: Countdown, startVal: 8, endVal: 0  },
+
+  { title: "XY", component: XY, startVal: 10, endVal: 0, roundStartVal: 3, roundEndVal: 1 },
+  { title: "Tabata", component: Tabata, startVal: 10, endVal: 10, roundStartVal: 3, roundEndVal: 1, intervalStartVal: 5, intervalEndVal: 0 },
+];
+
+
 const WorkoutView = () => {
   const navigate = useNavigate();
 
@@ -55,16 +67,6 @@ const WorkoutView = () => {
   const endVal = 0;
   
 
-  const timers = [
-  /*
-    { title: "Stopwatch", component: Stopwatch, seconds: 5 },
-    { title: "Stopwatch", component: Stopwatch, seconds: 5 },
-    { title: "Countdown", component: Countdown, seconds: 8 },
-    { title: "XY", component: XY, seconds: 10, rounds: 3 },
-  */
-    { title: "Tabata", component: Tabata, seconds: 10, round: 3, interval: 5 },
-  ];
-
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
   return (
@@ -72,7 +74,7 @@ const WorkoutView = () => {
       <div className="control-btn-wrapper">
         {isStopped &&
           <TimerBtn label="Start" handler={() => { 
-            setCount(startVal); 
+            setCount(timers[activeTimerIdx].startVal); // setCount(timers[activeTimerIdx].startVal)
             setStopped(false); 
             setPaused(false); }}
           />

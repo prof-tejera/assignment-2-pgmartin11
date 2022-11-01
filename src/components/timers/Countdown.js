@@ -6,11 +6,13 @@ import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
 
 
-const InnerCountdown = ({ seconds }) => {
-	const { count, setCount, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx } = useContext(TimerContext);
+const InnerCountdown = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
+	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
 
+/*
 	const startVal = seconds,
 		endVal = 0;
+ */
 
 	useEffect(() => {
 		let t;
@@ -23,9 +25,13 @@ const InnerCountdown = ({ seconds }) => {
 			}
 
 			if (count == 0) {
-				// setStopped(true);
-				setActiveTimerIdx(activeTimerIdx+1);
-				setCount(0); // should not be a hardcoded value
+				if (activeTimerIdx+1 < timers.length) {
+				  setCount(timers[activeTimerIdx+1].startVal);
+				  setRound(timers[activeTimerIdx+1].roundStartVal);
+				  setActiveTimerIdx(activeTimerIdx+1);
+				} else {
+				  setStopped(true);
+				}
 			}
 		}
 
@@ -41,7 +47,7 @@ const InnerCountdown = ({ seconds }) => {
 	);
 }
 
-const Countdown = ({ seconds, isRunning=false }) => {
+const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false }) => {
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
@@ -50,7 +56,7 @@ const Countdown = ({ seconds, isRunning=false }) => {
 		);
 	}
 
-	return <InnerCountdown seconds={seconds} />
+	return <InnerCountdown startVal={startVal} endVal={endVal} />
 }
 
 export default Countdown;

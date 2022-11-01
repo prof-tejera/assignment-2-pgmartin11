@@ -8,13 +8,15 @@ import { incrementHelper, decrementHelper } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
 
 
-const XY = ({ seconds, rounds }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx } = useContext(TimerContext);
+const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
+	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
 
+/*
     const startVal = seconds,
 		endVal = 0,
 		roundStartVal = rounds,
 		roundEndVal = 1;
+ */
 
 	useEffect(() => {
 		let t;
@@ -34,7 +36,14 @@ const XY = ({ seconds, rounds }) => {
 			}
 
 			if (round == 1 && count == 0) {
-				setStopped(true);
+				if (activeTimerIdx+1 < timers.length) {
+				  setCount(timers[activeTimerIdx+1].startVal);
+				  setRound(timers[activeTimerIdx+1].roundStartVal);
+				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
+				  setActiveTimerIdx(activeTimerIdx+1);
+				} else {
+				  setStopped(true);
+				}
 			}
 		}
 
@@ -52,6 +61,18 @@ const XY = ({ seconds, rounds }) => {
 			<DisplayRound round={round} />
 		</div>
 	);
+}
+
+const XY = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false }) => {
+	if (!isRunning) {
+		return (
+			<div className="main-panel">
+				<DisplayTime label="Count" count={0} />
+			</div>
+		);
+	}
+
+	return <InnerXY startVal={startVal} endVal={endVal} roundStartVal={roundStartVal} roundEndVal={roundEndVal}/>
 }
 
 export default XY;

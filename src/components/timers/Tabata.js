@@ -8,16 +8,18 @@ import { incrementHelper, decrementHelper } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
 
 
-const Tabata = ({ seconds, rounds, intervals }) => {
+const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal }) => {
 	const { count, setCount, round, setRound, interval, setInterv, 
-		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx } = useContext(TimerContext);
+		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
 
+/*
 	const startVal = seconds,
 		endVal = 0,
 		intervalStartVal = intervals,
 		intervalEndVal = 0,
 		roundStartVal = rounds,
 		roundEndVal = 1;
+ */
 
 	useEffect(() => {
 		let t;
@@ -68,6 +70,18 @@ const Tabata = ({ seconds, rounds, intervals }) => {
 			<DisplayRound round={round} />
 		</div>
 	);
+}
+
+const Tabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal, isRunning=false }) => {
+	if (!isRunning) {
+		return (
+			<div className="main-panel">
+				<DisplayTime label="Count" count={0} />
+			</div>
+		);
+	}
+
+	return <InnerTabata startVal={startVal} endVal={endVal} roundStartVal={roundStartVal} roundEndVal={roundEndVal} intervalStartVal={intervalStartVal} intervalEndVal={intervalEndVal} />
 }
 
 export default Tabata;

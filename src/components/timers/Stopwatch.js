@@ -24,11 +24,11 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 			}
 
 			if (count == endVal) {
-		console.log('timers', timers);
 				if (activeTimerIdx+1 < timers.length) {
 				  setCount(timers[activeTimerIdx+1].startVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
+				  setActiveTimerIdx(0);
 				  setStopped(true);
 				}
 			}
@@ -49,7 +49,7 @@ const Stopwatch = ({ startVal, endVal, isRunning=false }) => {
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={endVal} />
+				<DisplayTime label="Count" count={startVal} />
 			</div>
 		);
 	}

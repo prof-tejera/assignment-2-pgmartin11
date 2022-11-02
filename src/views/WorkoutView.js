@@ -50,19 +50,7 @@ const WorkoutView = () => {
 
   const { count, setCount, isPaused, setPaused, isStopped, setStopped, activeTimerIdx } = useContext(TimerContext);
 
-  //*** these values ultimately passed in from AddPost 
-
-  /* Stopwatch
-  const startVal = 0;
-  const endVal = 5;
-  */
-
-  /* Countdown
-  const startVal = 8;
-  const endVal = 0;
-   */
-
-  /* XY */
+  /* dummy values for now */
   const startVal = 10;
   const endVal = 0;
   
@@ -81,7 +69,7 @@ const WorkoutView = () => {
         }
         {!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
         <TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
-        <TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
+        <TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(timers[activeTimerIdx].endVal); /*setStopped(true);*/ }}}/>
       </div>
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       <Timers>

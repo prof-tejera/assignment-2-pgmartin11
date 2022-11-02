@@ -6,7 +6,7 @@ import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
 
 
-const InnerCountdown = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
+const InnerCountdown = ({ startVal, endVal }) => {
 	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
 
 /*
@@ -30,6 +30,7 @@ const InnerCountdown = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 				  setRound(timers[activeTimerIdx+1].roundStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
+				  setActiveTimerIdx(0);
 				  setStopped(true);
 				}
 			}
@@ -51,7 +52,7 @@ const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=fal
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={0} />
+				<DisplayTime label="Count" count={startVal} />
 			</div>
 		);
 	}

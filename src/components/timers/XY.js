@@ -42,6 +42,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
+				  setActiveTimerIdx(0);
 				  setStopped(true);
 				}
 			}
@@ -67,7 +68,8 @@ const XY = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false }) =
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={0} />
+				<DisplayTime label="Count" count={startVal} />
+				<DisplayRound round={roundStartVal} />
 			</div>
 		);
 	}

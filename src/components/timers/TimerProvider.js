@@ -21,7 +21,6 @@ const TimerProvider = ({ children }) => {
   return (
     <TimerContext.Provider
       value={{
-        foo: ()=>console.log('*** foo ***'),
         count, 
         setCount,
         round,

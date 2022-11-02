@@ -50,7 +50,15 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 			}
 
 			if (round == 1 && count == 0 && interval == 0) {
-	      		setStopped(true);
+				if (activeTimerIdx+1 < timers.length) {
+				  setCount(timers[activeTimerIdx+1].startVal);
+				  setRound(timers[activeTimerIdx+1].roundStartVal);
+				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
+				  setActiveTimerIdx(activeTimerIdx+1);
+				} else {
+				  setActiveTimerIdx(0);
+				  setStopped(true);
+				}
 			}
 		}
 
@@ -76,7 +84,9 @@ const Tabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={0} />
+				<DisplayTime label="Count" count={startVal} />
+				<DisplayTime label="Interval" count={roundStartVal} />
+				<DisplayRound round={roundStartVal} />
 			</div>
 		);
 	}

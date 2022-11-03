@@ -10,8 +10,6 @@ import { TimerContext } from './TimerProvider';
 
 const NewTimer = () => {
 	const navigate = useNavigate();
-	
-	const { foo } = useContext(TimerContext);
 
 	const [timer, setTimer] = useState(0);
 
@@ -86,7 +84,7 @@ const NewTimer = () => {
 		<div className="main-panel">
 			{/* <form action={f=>f}> */}
 				<label>Pick your choice of timer:
-					<select value={timer} onChange={(e) => { setTimer(e.target.value); foo(); }}>
+					<select value={timer} onChange={(e) => { setTimer(e.target.value); }}>
 						<option value="">--</option>
 						<option value="countdown">Countdown</option>
 						<option value="stopwatch">Stopwatch</option>

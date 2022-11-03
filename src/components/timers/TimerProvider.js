@@ -2,6 +2,11 @@ import React, { useState, createContext } from 'react';
 
 import { timers } from '../../views/WorkoutView';
 
+import Stopwatch from "./Stopwatch";
+import Countdown from "./Countdown";
+import XY from "./XY";
+import Tabata from "./Tabata";
+
 {/* import { usePersistedState } from '../hooks'; */}
 
 
@@ -14,6 +19,24 @@ const TimerProvider = ({ children }) => {
 
   //*** active timer by index
   const [activeTimerIdx, setActiveTimerIdx] = useState(0);
+
+  // workout - hard-coded for now
+  const intial_timers = [
+    { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 5, isRunning: false, isCompleted: false },
+    { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 8, isRunning: false, isCompleted: false },
+    { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 4, isRunning: false, isCompleted: false },
+/*
+    { title: "Countdown", component: Countdown, startVal: 8, endVal: 0  },
+    { title: "XY", component: XY, startVal: 10, endVal: 0, roundStartVal: 3, roundEndVal: 1 },
+    { title: "Tabata", component: Tabata, startVal: 10, endVal: 10, roundStartVal: 3, roundEndVal: 1, intervalStartVal: 5, intervalEndVal: 0 },
+ */
+  ];
+
+  const [timers, setTimers] = useState(intial_timers);
+
+  console.log('*** timers',timers);
+
+
 
   const [isPaused, setPaused] = useState(false);
   const [isStopped, setStopped] = useState(true);
@@ -33,7 +56,8 @@ const TimerProvider = ({ children }) => {
         setStopped,
         activeTimerIdx,
         setActiveTimerIdx,
-        timers
+        timers,
+        setTimers
       }}
     >
       {children}

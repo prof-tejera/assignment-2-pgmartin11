@@ -33,22 +33,10 @@ const TimerTitle = styled.div`
   font-weight: 600;
 `;
 
-// this will need to be a ref
-
-export const timers = [
-  { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 5 },
-/*  { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 8 }, */
-  { title: "Countdown", component: Countdown, startVal: 8, endVal: 0  },
-
-  { title: "XY", component: XY, startVal: 10, endVal: 0, roundStartVal: 3, roundEndVal: 1 },
-  { title: "Tabata", component: Tabata, startVal: 10, endVal: 10, roundStartVal: 3, roundEndVal: 1, intervalStartVal: 5, intervalEndVal: 0 },
-];
-
-
 const WorkoutView = () => {
   const navigate = useNavigate();
 
-  const { count, setCount, isPaused, setPaused, isStopped, setStopped, activeTimerIdx } = useContext(TimerContext);
+  const { count, setCount, isPaused, setPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
   /* dummy values for now */
   const startVal = 10;
@@ -62,14 +50,36 @@ const WorkoutView = () => {
       <div className="control-btn-wrapper">
         {isStopped &&
           <TimerBtn label="Start" handler={() => { 
-            setCount(timers[activeTimerIdx].startVal); // setCount(timers[activeTimerIdx].startVal)
+            const newTs = timers.map((timer, i) => {
+                return {...timer, isRunning: false, isCompleted: false };
+            });
+            setTimers(newTs);
+            setCount(timers[0].startVal);
+            setActiveTimerIdx(0);
             setStopped(false); 
             setPaused(false); }}
           />
         }
         {!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-        <TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
-        <TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(timers[activeTimerIdx].endVal); /*setStopped(true);*/ }}}/>
+        <TimerBtn disabled={isStopped} 
+            label="Reset" 
+            handler={() => { 
+              const newTs = timers.map((timer, i) => {
+                  return {...timer, isRunning: false, isCompleted: false };
+              });
+              setTimers(newTs);
+              setStopped(true);
+              setActiveTimerIdx(999); /* a kludge but works */
+            }}
+        />
+        <TimerBtn disabled={isStopped} 
+            label="Fast Forward" 
+            handler={() => { 
+              if(!isStopped) { 
+                  setCount(timers[activeTimerIdx].endVal); /* setRound, setInterv */ /*setStopped(true);*/ 
+              }
+            }}
+        />
       </div>
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       <Timers>

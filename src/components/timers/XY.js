@@ -9,7 +9,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
-	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
+	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
 /*
     const startVal = seconds,
@@ -37,12 +37,26 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 
 			if (round == 1 && count == 0) {
 				if (activeTimerIdx+1 < timers.length) {
+				  const newTs = timers.map((timer, i) => {
+			        if (i == activeTimerIdx) {
+				        return {...timer, isCompleted: true };
+			        }
+		            return timer;
+	              });
+				  setTimers(newTs);
+
 				  setCount(timers[activeTimerIdx+1].startVal);
 				  setRound(timers[activeTimerIdx+1].roundStartVal);
 				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
-				  setActiveTimerIdx(0);
+				  const newTs = timers.map((timer, i) => {
+					  if (i == activeTimerIdx) {
+						return {...timer, isCompleted: true };
+					  }
+				      return timer;
+			      });
+				  setTimers(newTs);
 				  setStopped(true);
 				}
 			}
@@ -64,7 +78,16 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 	);
 }
 
-const XY = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false }) => {
+const XY = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false, isCompleted=false }) => {
+
+	if (isCompleted) {
+		return (
+			<div className="main-panel">
+				<DisplayTime label="Count" count={endVal} />
+				<DisplayRound round={roundEndVal} />
+			</div>
+		);
+	} 
 	if (!isRunning) {
 		return (
 			<div className="main-panel">

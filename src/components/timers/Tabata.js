@@ -10,7 +10,7 @@ import { TimerContext } from './TimerProvider';
 
 const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal }) => {
 	const { count, setCount, round, setRound, interval, setInterv, 
-		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
+		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
 /*
 	const startVal = seconds,
@@ -51,12 +51,26 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 
 			if (round == 1 && count == 0 && interval == 0) {
 				if (activeTimerIdx+1 < timers.length) {
+				  const newTs = timers.map((timer, i) => {
+			      if (i == activeTimerIdx) {
+				      return {...timer, isCompleted: true };
+			      }
+		              return timer;
+	              });
+				  setTimers(newTs);
+
 				  setCount(timers[activeTimerIdx+1].startVal);
 				  setRound(timers[activeTimerIdx+1].roundStartVal);
 				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
-				  setActiveTimerIdx(0);
+				  const newTs = timers.map((timer, i) => {
+			      if (i == activeTimerIdx) {
+				      return {...timer, isCompleted: true };
+			      }
+		              return timer;
+	              });
+				  setTimers(newTs);
 				  setStopped(true);
 				}
 			}
@@ -80,12 +94,22 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 	);
 }
 
-const Tabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal, isRunning=false }) => {
+const Tabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal, isRunning=false, isCompleted=false }) => {
+	if (isCompleted) {
+		return (
+			<div className="main-panel">
+				<DisplayTime label="Count" count={endVal} />
+				<DisplayTime label="Interval" count={intervalEndVal} />
+				<DisplayRound round={roundEndVal} />
+			</div>
+		);
+	}
+
 	if (!isRunning) {
 		return (
 			<div className="main-panel">
 				<DisplayTime label="Count" count={startVal} />
-				<DisplayTime label="Interval" count={roundStartVal} />
+				<DisplayTime label="Interval" count={intervalStartVal} />
 				<DisplayRound round={roundStartVal} />
 			</div>
 		);

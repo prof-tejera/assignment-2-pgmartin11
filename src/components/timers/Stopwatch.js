@@ -7,7 +7,7 @@ import { TimerContext } from './TimerProvider';
 const InnerStopwatch = ({ startVal, endVal }) => {
 	const {  count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
- console.log('**** startVal', startVal, 'count', count);
+ // console.log('**** startVal', startVal, 'count', count);
 /*
 	const startVal = 0,
 		endVal = seconds;
@@ -34,6 +34,7 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 				  setTimers(newTs);
 
 				  setCount(timers[activeTimerIdx+1].startVal);
+				  setRound(timers[activeTimerIdx+1].roundStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
 				  const newTs = timers.map((timer, i) => {
@@ -43,7 +44,6 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 				      return timer;
 			      });
 				  setTimers(newTs);
-				  setActiveTimerIdx(0);
 				  setStopped(true);
 				}
 			}
@@ -61,8 +61,6 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 }
 
 const Stopwatch = ({ startVal, endVal, isRunning=false, isCompleted=false}) => {
-console.log('isCompleted', isCompleted);
-console.log('isRunning', isRunning);
 
 	if (isCompleted) {
 		return (

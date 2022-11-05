@@ -36,12 +36,14 @@ const TimerTitle = styled.div`
 const WorkoutView = () => {
   const navigate = useNavigate();
 
-  const { count, setCount, isPaused, setPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
+  const { count, setCount, round, setRound, interval, setInterv, 
+    isPaused, setPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
-  /* dummy values for now */
-  const startVal = 10;
-  const endVal = 0;
-  
+  const removeTimer = (idx) => {
+    const buf = timers.filter((timer, i) => i !== idx);
+
+    setTimers(buf);
+  }
 
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
@@ -76,7 +78,9 @@ const WorkoutView = () => {
             label="Fast Forward" 
             handler={() => { 
               if(!isStopped) { 
-                  setCount(timers[activeTimerIdx].endVal); /* setRound, setInterv */ /*setStopped(true);*/ 
+                  setCount(timers[activeTimerIdx].endVal); /* setRound, setInterv */ 
+                  setRound(timers[activeTimerIdx].roundEndVal);
+                  setInterv(timers[activeTimerIdx].intervalEndVal);
               }
             }}
         />
@@ -84,10 +88,13 @@ const WorkoutView = () => {
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       <Timers>
         {timers.map((timerData, idx) => (
+          <>
           <Timer key={`timer-${timerData.title}-${idx}`}>
             <TimerTitle>{timerData.title}</TimerTitle>
             <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
           </Timer>
+          {isStopped && <TimerBtn handler={() => removeTimer(idx)} label="Delete" />}
+         </>
         ))}
       </Timers>
     </>

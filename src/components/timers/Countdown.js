@@ -7,7 +7,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerCountdown = ({ startVal, endVal }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers } = useContext(TimerContext);
+	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
 /*
 	const startVal = seconds,
@@ -26,11 +26,25 @@ const InnerCountdown = ({ startVal, endVal }) => {
 
 			if (count == 0) {
 				if (activeTimerIdx+1 < timers.length) {
+				  const newTs = timers.map((timer, i) => {
+					  if (i == activeTimerIdx) {
+						return {...timer, isCompleted: true };
+					  }
+				      return timer;
+			      });
+			      setTimers(newTs);
+
 				  setCount(timers[activeTimerIdx+1].startVal);
 				  setRound(timers[activeTimerIdx+1].roundStartVal);
 				  setActiveTimerIdx(activeTimerIdx+1);
 				} else {
-				  setActiveTimerIdx(0);
+				  const newTs = timers.map((timer, i) => {
+					  if (i == activeTimerIdx) {
+						return {...timer, isCompleted: true };
+					  }
+				      return timer;
+			      });
+			      setTimers(newTs);
 				  setStopped(true);
 				}
 			}
@@ -48,7 +62,16 @@ const InnerCountdown = ({ startVal, endVal }) => {
 	);
 }
 
-const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false }) => {
+const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false, isCompleted=false }) => {
+
+	if (isCompleted) {
+		return (
+			<div className="main-panel">
+				<DisplayTime label="Count" count={endVal} />
+			</div>
+		);
+	}
+
 	if (!isRunning) {
 		return (
 			<div className="main-panel">

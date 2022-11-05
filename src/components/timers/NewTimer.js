@@ -4,25 +4,27 @@ import { PATHS } from '../../constants';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
 import SetterButtons from "../../components/helpers/SetterButtons";
-import { incrementHelper, decrementHelper } from "../../utils/helpers";
+import { incrementHelper, decrementHelper, calcSeconds } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
+
+import Stopwatch from "./Stopwatch";
+import Countdown from "./Countdown";
+import XY from "./XY";
+import Tabata from "./Tabata";
 
 
 const NewTimer = () => {
 	const navigate = useNavigate();
+	const { timers, setTimers } = useContext(TimerContext);
 
-	const [timer, setTimer] = useState(0);
-
+	const [type, setType] = useState('');
 	const [countHrs, setCountHrs] = useState(0);
 	const [countMins, setCountMins] = useState(0);
 	const [countSecs, setCountSecs] = useState(0);
-
 	const [intervalHrs, setIntervalHrs] = useState(0);
 	const [intervalMins, setIntervalMins] = useState(0);
 	const [intervalSecs, setIntervalSecs] = useState(0);
 	const [countRounds, setCountRounds] = useState(1);
-
-
 
 	const setterBtnData = {
 		hoursLabel: 'Hours',
@@ -48,15 +50,73 @@ const NewTimer = () => {
 		setCountSecs: setIntervalSecs
 	};
 
-	console.log('timer',timer);
+	const addTimer = () => {
+		let timerData = {
+			title: '', 
+			component: '', 
+			startVal: '', 
+			endVal: '', 
+			roundStartVal: '', 
+			roundEndVal: '', 
+			intervalStartVal: '',
+			intervalEndVal: '',
+			isRunning: false, 
+			isCompleted: false
+		};
+		timerData.title = type;
+
+		switch (type) {
+			case 'Stopwatch':
+				timerData.component = Stopwatch;
+				timerData.startVal = 0;
+				timerData.endVal = calcSeconds(countHrs, countMins, countSecs);
+				break;
+			case 'Countdown':
+				timerData.component = Countdown;
+				timerData.startVal = calcSeconds(countHrs, countMins, countSecs);
+				timerData.endVal = 0;
+				break;
+			case 'XY':
+				timerData.component = XY;
+				timerData.startVal = calcSeconds(countHrs, countMins, countSecs);
+				timerData.endVal = 0;
+				timerData.roundStartVal = countRounds;
+				timerData.roundEndVal = 1;
+				break;
+			case 'Tabata':
+				timerData.component = Tabata;
+				timerData.startVal = calcSeconds(countHrs, countMins, countSecs);
+				timerData.endVal = 0;
+				timerData.intervalStartVal = calcSeconds(intervalHrs, intervalMins, intervalSecs);
+				timerData.intervalEndVal = 0;
+				timerData.roundStartVal = countRounds;
+				timerData.roundEndVal = 1;
+		}
+
+		const buf = [
+			...timers,
+			timerData
+		];
+		setTimers(buf);
+
+		// reset values
+		setType('');
+		setCountHrs(0);
+		setCountMins(0);
+		setCountSecs(0);
+		setIntervalHrs(0);
+		setIntervalMins(0);
+		setIntervalSecs(0);
+		setCountRounds(1);
+	}
 
 	let setters;
-	switch (timer) {
-		case 'countdown':
-		case 'stopwatch':
+	switch (type) {
+		case 'Stopwatch':
+		case 'Countdown':
 			setters = <SetterButtons {...setterBtnData} />;
 			break;
-		case 'xy':
+		case 'XY':
 			setters = (
 				<>
 					<SetterButtons {...setterBtnData} />
@@ -67,7 +127,7 @@ const NewTimer = () => {
 				</>
 			);
 			break;
-		case 'tabata':
+		case 'Tabata':
 			setters = (
 				<>
 					<div className="interval-wrapper"><SetterButtons {...setterBtnData} /></div>
@@ -84,18 +144,19 @@ const NewTimer = () => {
 		<div className="main-panel">
 			{/* <form action={f=>f}> */}
 				<label>Pick your choice of timer:
-					<select value={timer} onChange={(e) => { setTimer(e.target.value); }}>
+					<select value={type} onChange={(e) => { setType(e.target.value); }}>
 						<option value="">--</option>
-						<option value="countdown">Countdown</option>
-						<option value="stopwatch">Stopwatch</option>
-						<option value="xy">XY</option>
-						<option value="tabata">Tabata</option>
+						<option value="Countdown">Countdown</option>
+						<option value="Stopwatch">Stopwatch</option>
+						<option value="XY">XY</option>
+						<option value="Tabata">Tabata</option>
 					</select>
 				</label>
 				<br/>
 				{setters}
 				<br/>
-				<input type="submit" value="Submit" />
+				{/* <input type="submit" value="Submit" /> */}
+				{type && <button className="" onClick={addTimer}>Add Timer</button>}
 			{/* </form> */}
       		<TimerBtn handler={() => navigate(PATHS.HOME)} label="Return to workout" />
 		</div>

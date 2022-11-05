@@ -12,15 +12,6 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 	const { count, setCount, round, setRound, interval, setInterv, 
 		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
-/*
-	const startVal = seconds,
-		endVal = 0,
-		intervalStartVal = intervals,
-		intervalEndVal = 0,
-		roundStartVal = rounds,
-		roundEndVal = 1;
- */
-
 	useEffect(() => {
 		let t;
 
@@ -95,22 +86,12 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 }
 
 const Tabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal, isRunning=false, isCompleted=false }) => {
-	if (isCompleted) {
+	if (!isRunning || isCompleted) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={endVal} />
-				<DisplayTime label="Interval" count={intervalEndVal} />
-				<DisplayRound round={roundEndVal} />
-			</div>
-		);
-	}
-
-	if (!isRunning) {
-		return (
-			<div className="main-panel">
-				<DisplayTime label="Count" count={startVal} />
-				<DisplayTime label="Interval" count={intervalStartVal} />
-				<DisplayRound round={roundStartVal} />
+				<DisplayTime label="Count" count={isCompleted ? endVal : startVal} />
+				<DisplayTime label="Interval" count={isCompleted ? intervalEndVal : intervalStartVal} />
+				<DisplayRound round={isCompleted ? roundEndVal : roundStartVal} />
 			</div>
 		);
 	}

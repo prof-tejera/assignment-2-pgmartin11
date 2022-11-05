@@ -11,7 +11,7 @@ const Container = styled.div`
   overflow: auto;
 `;
 
-{/*
+// fix this...
 const Nav = () => {
   return (
     <nav>
@@ -26,8 +26,6 @@ const Nav = () => {
     </nav>
   );
 };
-*/}
-
 
 const App = () => {
   return (

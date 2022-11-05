@@ -41,7 +41,6 @@ const WorkoutView = () => {
 
   const removeTimer = (idx) => {
     const buf = timers.filter((timer, i) => i !== idx);
-
     setTimers(buf);
   }
 
@@ -88,13 +87,13 @@ const WorkoutView = () => {
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       <Timers>
         {timers.map((timerData, idx) => (
-          <>
-          <Timer key={`timer-${timerData.title}-${idx}`}>
-            <TimerTitle>{timerData.title}</TimerTitle>
-            <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
-          </Timer>
-          {isStopped && <TimerBtn handler={() => removeTimer(idx)} label="Delete" />}
-         </>
+          <React.Fragment key={`wrap-${timerData.title}-${idx}`} >
+            <Timer key={`timer-${timerData.title}-${idx}`}>
+              <TimerTitle>{timerData.title}</TimerTitle>
+              <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
+            </Timer>
+            {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="Delete" />}
+          </React.Fragment>
         ))}
       </Timers>
     </>

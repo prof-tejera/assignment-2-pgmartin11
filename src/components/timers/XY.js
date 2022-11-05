@@ -11,13 +11,6 @@ import { TimerContext } from './TimerProvider';
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
-/*
-    const startVal = seconds,
-		endVal = 0,
-		roundStartVal = rounds,
-		roundEndVal = 1;
- */
-
 	useEffect(() => {
 		let t;
 
@@ -80,19 +73,11 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 
 const XY = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false, isCompleted=false }) => {
 
-	if (isCompleted) {
+	if (!isRunning || isCompleted) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={endVal} />
-				<DisplayRound round={roundEndVal} />
-			</div>
-		);
-	} 
-	if (!isRunning) {
-		return (
-			<div className="main-panel">
-				<DisplayTime label="Count" count={startVal} />
-				<DisplayRound round={roundStartVal} />
+				<DisplayTime label="Count" count={isCompleted ? endVal : startVal} />
+				<DisplayRound round={isCompleted ? roundEndVal : roundStartVal} />
 			</div>
 		);
 	}

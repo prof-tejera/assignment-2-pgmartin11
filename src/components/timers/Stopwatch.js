@@ -7,12 +7,6 @@ import { TimerContext } from './TimerProvider';
 const InnerStopwatch = ({ startVal, endVal }) => {
 	const {  count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
- // console.log('**** startVal', startVal, 'count', count);
-/*
-	const startVal = 0,
-		endVal = seconds;
- */
-
 	useEffect(() => {
 		let t;
 
@@ -62,18 +56,10 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 
 const Stopwatch = ({ startVal, endVal, isRunning=false, isCompleted=false}) => {
 
-	if (isCompleted) {
+	if (!isRunning || isCompleted) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={endVal} />
-			</div>
-		);
-	}
-
-	if (!isRunning) {
-		return (
-			<div className="main-panel">
-				<DisplayTime label="Count" count={startVal} />
+				<DisplayTime label="Count" count={isCompleted ? endVal : startVal} />
 			</div>
 		);
 	}

@@ -44,5 +44,5 @@ export const calcHMS = (count) => {
  * derive hours, minutes, seconds from seconds passed in 
  */
 export const calcSeconds = (hrs, mins, secs) => {
-  return hrs * 60 * 60 + mins * 60 + secs;
+    return hrs * 60 * 60 + mins * 60 + secs;
 }

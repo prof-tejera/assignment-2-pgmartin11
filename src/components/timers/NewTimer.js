@@ -6,7 +6,6 @@ import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
 import SetterButtons from "../../components/helpers/SetterButtons";
 import { incrementHelper, decrementHelper, calcSeconds } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
-
 import Stopwatch from "./Stopwatch";
 import Countdown from "./Countdown";
 import XY from "./XY";

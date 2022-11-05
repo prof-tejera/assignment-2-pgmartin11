@@ -9,11 +9,6 @@ import { TimerContext } from './TimerProvider';
 const InnerCountdown = ({ startVal, endVal }) => {
 	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
 
-/*
-	const startVal = seconds,
-		endVal = 0;
- */
-
 	useEffect(() => {
 		let t;
 
@@ -64,18 +59,10 @@ const InnerCountdown = ({ startVal, endVal }) => {
 
 const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false, isCompleted=false }) => {
 
-	if (isCompleted) {
+	if (!isRunning || isCompleted) {
 		return (
 			<div className="main-panel">
-				<DisplayTime label="Count" count={endVal} />
-			</div>
-		);
-	}
-
-	if (!isRunning) {
-		return (
-			<div className="main-panel">
-				<DisplayTime label="Count" count={startVal} />
+				<DisplayTime label="Count" count={isCompleted ? endVal : startVal} />
 			</div>
 		);
 	}

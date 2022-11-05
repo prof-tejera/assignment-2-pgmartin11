@@ -7,7 +7,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerCountdown = ({ startVal, endVal }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
+	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;
@@ -20,28 +20,7 @@ const InnerCountdown = ({ startVal, endVal }) => {
 			}
 
 			if (count == 0) {
-				if (activeTimerIdx+1 < timers.length) {
-				  const newTs = timers.map((timer, i) => {
-					  if (i == activeTimerIdx) {
-						return {...timer, isCompleted: true };
-					  }
-				      return timer;
-			      });
-			      setTimers(newTs);
-
-				  setCount(timers[activeTimerIdx+1].startVal);
-				  setRound(timers[activeTimerIdx+1].roundStartVal);
-				  setActiveTimerIdx(activeTimerIdx+1);
-				} else {
-				  const newTs = timers.map((timer, i) => {
-					  if (i == activeTimerIdx) {
-						return {...timer, isCompleted: true };
-					  }
-				      return timer;
-			      });
-			      setTimers(newTs);
-				  setStopped(true);
-				}
+				dispatcher();
 			}
 		}
 

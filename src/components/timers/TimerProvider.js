@@ -16,16 +16,47 @@ const TimerProvider = ({ children }) => {
   const [activeTimerIdx, setActiveTimerIdx] = useState(0);
 
   // workout - hard-coded for now
-  const intial_timers = [
+  const initial_timers = [
     { title: "Stopwatch", component: Stopwatch, startVal: 0, endVal: 5, roundStartVal: null, roundEndVal: null, intervalStartVal: null, intervalEndVal: null, isRunning: false, isCompleted: false },
     { title: "Countdown", component: Countdown, startVal: 8, endVal: 0, roundStartVal: null, roundEndVal: null, intervalStartVal: null, intervalEndVal: null,  isRunning: false, isCompleted: false },
     { title: "XY", component: XY, startVal: 10, endVal: 0, roundStartVal: 3, roundEndVal: 1, intervalStartVal: null, intervalEndVal: null, isRunning: false, isCompleted: false },
     { title: "Tabata", component: Tabata, startVal: 10, endVal: 0, roundStartVal: 3, roundEndVal: 1, intervalStartVal: 5, intervalEndVal: 0, isRunning: false, isCompleted: false },
   ];
 
-  const [timers, setTimers] = useState(intial_timers);
+  const [timers, setTimers] = useState(initial_timers);
   const [isPaused, setPaused] = useState(false);
   const [isStopped, setStopped] = useState(true);
+
+  const markTimerComplete = () => {
+      const newTs = timers.map((timer, i) => {
+        if (i == activeTimerIdx) {
+          return {...timer, isCompleted: true };
+        }
+        return timer;
+      });
+      setTimers(newTs); 
+  }
+
+  const dispatcher = (type) => {
+
+    if (activeTimerIdx+1 < timers.length) {
+      markTimerComplete();
+      setCount(timers[activeTimerIdx+1].startVal);
+
+      if (timers[activeTimerIdx+1].title == 'XY' || timers[activeTimerIdx+1].title == 'Tabata') {
+        setRound(timers[activeTimerIdx+1].roundStartVal);
+      }
+
+      if (timers[activeTimerIdx+1].title == 'Tabata') { 
+        setInterv(timers[activeTimerIdx+1].intervalStartVal); 
+      }
+
+      setActiveTimerIdx(activeTimerIdx+1);
+    } else {
+      markTimerComplete();
+      setStopped(true);
+    }
+  }
 
   return (
     <TimerContext.Provider
@@ -43,7 +74,8 @@ const TimerProvider = ({ children }) => {
         activeTimerIdx,
         setActiveTimerIdx,
         timers,
-        setTimers
+        setTimers,
+        dispatcher
       }}
     >
       {children}

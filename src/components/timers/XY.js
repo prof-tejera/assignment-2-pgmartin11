@@ -9,7 +9,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
-	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
+	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;
@@ -29,29 +29,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 			}
 
 			if (round == 1 && count == 0) {
-				if (activeTimerIdx+1 < timers.length) {
-				  const newTs = timers.map((timer, i) => {
-			        if (i == activeTimerIdx) {
-				        return {...timer, isCompleted: true };
-			        }
-		            return timer;
-	              });
-				  setTimers(newTs);
-
-				  setCount(timers[activeTimerIdx+1].startVal);
-				  setRound(timers[activeTimerIdx+1].roundStartVal);
-				  setInterv(timers[activeTimerIdx+1].intervalStartVal);
-				  setActiveTimerIdx(activeTimerIdx+1);
-				} else {
-				  const newTs = timers.map((timer, i) => {
-					  if (i == activeTimerIdx) {
-						return {...timer, isCompleted: true };
-					  }
-				      return timer;
-			      });
-				  setTimers(newTs);
-				  setStopped(true);
-				}
+				dispatcher();
 			}
 		}
 

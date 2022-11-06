@@ -1,11 +1,13 @@
 import React from "react";
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import styled from "styled-components";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
 
 import { TimerContext } from '../components/timers/TimerProvider';
+
+import DisplayTime from "../components/generic/DisplayTime";
 
 import Stopwatch from "../components/timers/Stopwatch";
 import Countdown from "../components/timers/Countdown";
@@ -37,7 +39,15 @@ const WorkoutView = () => {
   const navigate = useNavigate();
 
   const { count, setCount, round, setRound, interval, setInterv, 
-    isPaused, setPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers } = useContext(TimerContext);
+    isPaused, setPaused, isStopped, setStopped, activeTimerIdx, 
+    setActiveTimerIdx, timers, setTimers, remainingTime, setRemainingTime } = useContext(TimerContext);
+
+  const workoutRunningTime = useRef(0);
+
+  useEffect(() => {
+    workoutRunningTime.current = calcWorkoutTime(timers);
+    setRemainingTime(workoutRunningTime.current);
+  }, []);
 
   const removeTimer = (idx) => {
     const buf = timers.filter((timer, i) => i !== idx);
@@ -45,6 +55,34 @@ const WorkoutView = () => {
   }
 
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
+
+  const calcWorkoutTime = (timers) => {
+    let totalTime = 0,
+      timerSecs = 0;
+
+    timers.forEach((timerData, idx) => {
+      timerSecs = 0;
+
+      switch (timers[idx].title) {
+        case 'Stopwatch':
+          timerSecs = timers[idx].endVal;
+          break;
+        case 'Countdown':
+          timerSecs = timers[idx].startVal;
+          break;
+        case 'XY':
+          timerSecs = timers[idx].startVal * timers[idx].roundStartVal;
+          break;
+        case 'Tabata':
+          timerSecs = (timers[idx].startVal + timers[idx].intervalStartVal) * timers[idx].roundStartVal;
+      }
+
+      totalTime += timerSecs;
+    });
+
+    return totalTime;
+  }
 
   return (
     <>
@@ -85,6 +123,9 @@ const WorkoutView = () => {
         />
       </div>
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
+      {isStopped && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
+      {!isStopped && <DisplayTime label="Running time" count={remainingTime} />}
+      <DisplayTime label="Ref time" count={workoutRunningTime.current} />
       <Timers>
         {timers.map((timerData, idx) => (
           <React.Fragment key={`wrap-${timerData.title}-${idx}`} >

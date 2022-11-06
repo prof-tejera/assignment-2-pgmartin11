@@ -9,7 +9,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
-	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher } = useContext(TimerContext);
+	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;
@@ -18,6 +18,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 			if (count > 0) {
 				t = setTimeout(() => {
 				  setCount(count-1);
+				  setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 
@@ -25,6 +26,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 				t = setTimeout(() => {
 				  setRound(round-1);
 				  setCount(startVal);
+				  //setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 

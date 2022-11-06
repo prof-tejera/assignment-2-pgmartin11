@@ -10,7 +10,7 @@ import { TimerContext } from './TimerProvider';
 
 const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal }) => {
 	const { count, setCount, round, setRound, interval, setInterv, 
-		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher } = useContext(TimerContext);
+		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;
@@ -23,12 +23,14 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 			if (count > 0) {
 				t = setTimeout(() => {
 					setCount(count-1);
+					setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 
 			if ((count == 0) && (interval > 0)) {
 				t = setTimeout(() => {
 					setInterv(interval-1);
+					setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 	 
@@ -37,6 +39,7 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 					setRound(round-1);
 					setCount(startVal);
 					setInterv(intervalStartVal);
+					//setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 

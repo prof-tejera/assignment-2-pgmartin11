@@ -7,7 +7,7 @@ import { TimerContext } from './TimerProvider';
 
 
 const InnerCountdown = ({ startVal, endVal }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher } = useContext(TimerContext);
+	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;
@@ -16,6 +16,7 @@ const InnerCountdown = ({ startVal, endVal }) => {
 			if (count > 0) {
 				t = setTimeout(() => {
 				setCount(count-1);
+				setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 

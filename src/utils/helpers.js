@@ -62,4 +62,8 @@ export const calcTotalFastForwardTime = (timers, activeTimerIdx) => {
     }
 
     return totalFFTime;
-  }
+}
+
+export const isWorkoutCompleted = (timers) => {
+    return !timers.some(timer => timer.isCompleted === false);
+}

@@ -5,11 +5,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
 import { calcWorkoutTime, calcTotalFastForwardTime, isWorkoutCompleted } from "../utils/helpers";
-
 import { TimerContext } from '../components/timers/TimerProvider';
-
 import DisplayTime from "../components/generic/DisplayTime";
-
 import Stopwatch from "../components/timers/Stopwatch";
 import Countdown from "../components/timers/Countdown";
 import XY from "../components/timers/XY";

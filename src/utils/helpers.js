@@ -46,3 +46,30 @@ export const calcHMS = (count) => {
 export const calcSeconds = (hrs, mins, secs) => {
     return hrs * 60 * 60 + mins * 60 + secs;
 }
+
+export const calcWorkoutTime = (timers) => {
+    let totalTime = 0,
+      timerSecs = 0;
+
+    timers.forEach((timerData, idx) => {
+      timerSecs = 0;
+
+      switch (timers[idx].title) {
+        case 'Stopwatch':
+          timerSecs = timers[idx].endVal;
+          break;
+        case 'Countdown':
+          timerSecs = timers[idx].startVal;
+          break;
+        case 'XY':
+          timerSecs = timers[idx].startVal * timers[idx].roundStartVal;
+          break;
+        case 'Tabata':
+          timerSecs = (timers[idx].startVal + timers[idx].intervalStartVal) * timers[idx].roundStartVal;
+      }
+
+      totalTime += timerSecs;
+    });
+
+    return totalTime;
+}

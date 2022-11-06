@@ -53,3 +53,13 @@ export const calcWorkoutTime = (timers) => {
 
     return totalTime;
 }
+
+export const calcTotalFastForwardTime = (timers, activeTimerIdx) => {
+    let totalFFTime = 0;
+
+    for (let i=0; i <= activeTimerIdx; i++) {
+      totalFFTime += timers[i].timerSecs;
+    }
+
+    return totalFFTime;
+  }

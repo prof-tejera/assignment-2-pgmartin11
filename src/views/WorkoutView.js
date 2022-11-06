@@ -43,9 +43,11 @@ const WorkoutView = () => {
   const workoutRunningTime = useRef(0);
 
   useEffect(() => {
-    workoutRunningTime.current = calcWorkoutTime(timers);
-    setRemainingTime(workoutRunningTime.current);
-  }, [timers]);
+    if (isStopped) {
+      workoutRunningTime.current = calcWorkoutTime(timers);
+      setRemainingTime(workoutRunningTime.current);
+    }
+  }, [timers, isStopped]);
 
   const removeTimer = (idx) => {
     const buf = timers.filter((timer, i) => i !== idx);
@@ -109,7 +111,7 @@ const WorkoutView = () => {
             }}
         />
       </div>
-      <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
+      {isStopped && <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />}
       {isStopped && !isWorkoutDone && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
       {(!isStopped || isWorkoutDone) && <DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} />}
       <Timers>

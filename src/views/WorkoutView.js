@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
+import { calcWorkoutTime } from "../utils/helpers";
 
 import { TimerContext } from '../components/timers/TimerProvider';
 
@@ -57,33 +58,6 @@ const WorkoutView = () => {
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
 
-  const calcWorkoutTime = (timers) => {
-    let totalTime = 0,
-      timerSecs = 0;
-
-    timers.forEach((timerData, idx) => {
-      timerSecs = 0;
-
-      switch (timers[idx].title) {
-        case 'Stopwatch':
-          timerSecs = timers[idx].endVal;
-          break;
-        case 'Countdown':
-          timerSecs = timers[idx].startVal;
-          break;
-        case 'XY':
-          timerSecs = timers[idx].startVal * timers[idx].roundStartVal;
-          break;
-        case 'Tabata':
-          timerSecs = (timers[idx].startVal + timers[idx].intervalStartVal) * timers[idx].roundStartVal;
-      }
-
-      totalTime += timerSecs;
-    });
-
-    return totalTime;
-  }
-
   return (
     <>
       <div className="control-btn-wrapper">
@@ -94,6 +68,13 @@ const WorkoutView = () => {
             });
             setTimers(newTs);
             setCount(timers[0].startVal);
+            if (timers[0].title == 'XY' || timers[0].title == 'Tabata') {
+              setRound(timers[0].roundStartVal);
+            }
+
+            if (timers[0].title == 'Tabata') { 
+              setInterv(timers[0].intervalStartVal); 
+            }
             setActiveTimerIdx(0);
             setStopped(false); 
             setPaused(false); }}

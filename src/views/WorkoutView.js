@@ -68,13 +68,14 @@ const WorkoutView = () => {
             });
             setTimers(newTs);
             setCount(timers[0].startVal);
+
             if (timers[0].title == 'XY' || timers[0].title == 'Tabata') {
               setRound(timers[0].roundStartVal);
             }
-
             if (timers[0].title == 'Tabata') { 
               setInterv(timers[0].intervalStartVal); 
             }
+
             setActiveTimerIdx(0);
             setStopped(false); 
             setPaused(false); }}
@@ -97,8 +98,13 @@ const WorkoutView = () => {
             handler={() => { 
               if(!isStopped) { 
                   setCount(timers[activeTimerIdx].endVal); /* setRound, setInterv */ 
-                  setRound(timers[activeTimerIdx].roundEndVal);
-                  setInterv(timers[activeTimerIdx].intervalEndVal);
+
+                  if (timers[activeTimerIdx].title == 'XY' || timers[activeTimerIdx].title == 'Tabata') {
+                    setRound(timers[activeTimerIdx].roundEndVal);
+                  }
+                  if (timers[activeTimerIdx].title == 'Tabata') { 
+                    setInterv(timers[activeTimerIdx].intervalEndVal);
+                  }
               }
             }}
         />

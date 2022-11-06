@@ -26,7 +26,6 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 				t = setTimeout(() => {
 				  setRound(round-1);
 				  setCount(startVal);
-				  //setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 

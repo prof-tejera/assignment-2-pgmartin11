@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
-import { calcWorkoutTime, calcTotalFastForwardTime } from "../utils/helpers";
+import { calcWorkoutTime, calcTotalFastForwardTime, isWorkoutCompleted } from "../utils/helpers";
 
 import { TimerContext } from '../components/timers/TimerProvider';
 
@@ -48,12 +48,14 @@ const WorkoutView = () => {
   useEffect(() => {
     workoutRunningTime.current = calcWorkoutTime(timers);
     setRemainingTime(workoutRunningTime.current);
-  }, []);
+  }, [timers]);
 
   const removeTimer = (idx) => {
     const buf = timers.filter((timer, i) => i !== idx);
     setTimers(buf);
   }
+
+  const isWorkoutDone = isWorkoutCompleted(timers);
 
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
@@ -111,8 +113,9 @@ const WorkoutView = () => {
         />
       </div>
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
-      {isStopped && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
-      {!isStopped && <DisplayTime label="Running time" count={remainingTime} />}
+      {isStopped && !isWorkoutDone && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
+      {!isStopped && <DisplayTime label="Time remaining" count={remainingTime} />}
+      {isWorkoutDone && <DisplayTime label="Time remaining" count={0} />}
       <Timers>
         {timers.map((timerData, idx) => (
           <React.Fragment key={`wrap-${timerData.title}-${idx}`} >

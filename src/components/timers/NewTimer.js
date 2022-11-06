@@ -69,11 +69,13 @@ const NewTimer = () => {
 				timerData.component = Stopwatch;
 				timerData.startVal = 0;
 				timerData.endVal = calcSeconds(countHrs, countMins, countSecs);
+				timerData.timerSecs = timerData.endVal;
 				break;
 			case 'Countdown':
 				timerData.component = Countdown;
 				timerData.startVal = calcSeconds(countHrs, countMins, countSecs);
 				timerData.endVal = 0;
+				timerData.timerSecs = timerData.startVal ;
 				break;
 			case 'XY':
 				timerData.component = XY;
@@ -81,6 +83,7 @@ const NewTimer = () => {
 				timerData.endVal = 0;
 				timerData.roundStartVal = countRounds;
 				timerData.roundEndVal = 1;
+				timerData.timerSecs = timerData.startVal * timerData.roundStartVal;
 				break;
 			case 'Tabata':
 				timerData.component = Tabata;
@@ -90,6 +93,7 @@ const NewTimer = () => {
 				timerData.intervalEndVal = 0;
 				timerData.roundStartVal = countRounds;
 				timerData.roundEndVal = 1;
+				timerData.timerSecs = (timerData.startVal + timerData.intervalStartVal) * timerData.roundStartVal;
 		}
 
 		const buf = [

@@ -114,8 +114,7 @@ const WorkoutView = () => {
       </div>
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       {isStopped && !isWorkoutDone && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
-      {!isStopped && <DisplayTime label="Time remaining" count={remainingTime} />}
-      {isWorkoutDone && <DisplayTime label="Time remaining" count={0} />}
+      {(!isStopped || isWorkoutDone) && <DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} />}
       <Timers>
         {timers.map((timerData, idx) => (
           <React.Fragment key={`wrap-${timerData.title}-${idx}`} >

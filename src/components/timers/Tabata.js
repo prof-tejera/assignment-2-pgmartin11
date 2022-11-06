@@ -39,7 +39,6 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 					setRound(round-1);
 					setCount(startVal);
 					setInterv(intervalStartVal);
-					//setRemainingTime(remainingTime-1);
 				}, 1000)
 			}
 

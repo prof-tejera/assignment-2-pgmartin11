@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
-import { calcWorkoutTime } from "../utils/helpers";
+import { calcWorkoutTime, calcTotalFastForwardTime } from "../utils/helpers";
 
 import { TimerContext } from '../components/timers/TimerProvider';
 
@@ -57,7 +57,6 @@ const WorkoutView = () => {
 
   const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
-
   return (
     <>
       <div className="control-btn-wrapper">
@@ -97,7 +96,7 @@ const WorkoutView = () => {
             label="Fast Forward" 
             handler={() => { 
               if(!isStopped) { 
-                  setCount(timers[activeTimerIdx].endVal); /* setRound, setInterv */ 
+                  setCount(timers[activeTimerIdx].endVal);
 
                   if (timers[activeTimerIdx].title == 'XY' || timers[activeTimerIdx].title == 'Tabata') {
                     setRound(timers[activeTimerIdx].roundEndVal);
@@ -105,6 +104,8 @@ const WorkoutView = () => {
                   if (timers[activeTimerIdx].title == 'Tabata') { 
                     setInterv(timers[activeTimerIdx].intervalEndVal);
                   }
+
+                  setRemainingTime(workoutRunningTime.current - calcTotalFastForwardTime(timers, activeTimerIdx));
               }
             }}
         />
@@ -112,15 +113,14 @@ const WorkoutView = () => {
       <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       {isStopped && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
       {!isStopped && <DisplayTime label="Running time" count={remainingTime} />}
-      <DisplayTime label="Ref time" count={workoutRunningTime.current} />
       <Timers>
         {timers.map((timerData, idx) => (
           <React.Fragment key={`wrap-${timerData.title}-${idx}`} >
+            {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="Delete" />}
             <Timer key={`timer-${timerData.title}-${idx}`}>
               <TimerTitle>{timerData.title}</TimerTitle>
               <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
             </Timer>
-            {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="Delete" />}
           </React.Fragment>
         ))}
       </Timers>

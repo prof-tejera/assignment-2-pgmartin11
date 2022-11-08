@@ -1,16 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
-import TimerBtn from "../../components/generic/TimerBtn";
-import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
-import SetterButtons from "../../components/helpers/SetterButtons";
+import { useEffect, useContext } from 'react';
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
-import { incrementHelper, decrementHelper } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
 
 
 const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal }) => {
 	const { count, setCount, round, setRound, interval, setInterv, 
-		isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
+		isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;

@@ -1,13 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
-import TimerBtn from "../../components/generic/TimerBtn";
+import { useEffect, useContext } from 'react';
 import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
-import SetterButtons from "../../components/helpers/SetterButtons";
 import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
 
 
 const InnerCountdown = ({ startVal, endVal }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
+	const { count, setCount, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;

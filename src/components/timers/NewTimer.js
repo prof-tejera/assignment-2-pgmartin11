@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../constants';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
@@ -10,6 +10,7 @@ import Stopwatch from "./Stopwatch";
 import Countdown from "./Countdown";
 import XY from "./XY";
 import Tabata from "./Tabata";
+import "./NewTimer.css";
 
 
 const NewTimer = () => {
@@ -124,8 +125,9 @@ const NewTimer = () => {
 				<>
 					<SetterButtons {...setterBtnData} />
 					<br/>
-					<span> Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-					<span>{countRounds}</span>
+					<br/>
+					<span className="time-setter-title"> Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+					<span className="time-setter-val">{countRounds}</span>
 					<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 				</>
 			);
@@ -136,8 +138,8 @@ const NewTimer = () => {
 					<div className="interval-wrapper"><SetterButtons {...setterBtnData} /></div>
 					<div className="interval-wrapper"><SetterButtons {...setterIntervalBtnData} /></div>
 					<br/>
-					<span>Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-					<span>{countRounds}</span>
+					<span className="time-setter-title">Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+					<span className="time-setter-val">{countRounds}</span>
 					<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 				</>
 			);
@@ -145,7 +147,7 @@ const NewTimer = () => {
 
 	return (
 		<div className="main-panel">
-			{/* <form action={f=>f}> */}
+				<h1>Add Timer</h1>
 				<label>Pick your choice of timer:
 					<select value={type} onChange={(e) => { setType(e.target.value); }}>
 						<option value="">--</option>
@@ -160,7 +162,6 @@ const NewTimer = () => {
 				<br/>
 				{/* <input type="submit" value="Submit" /> */}
 				{type && <button className="" onClick={addTimer}>Add Timer</button>}
-			{/* </form> */}
       		<TimerBtn handler={() => navigate(PATHS.HOME)} label="Return to workout" />
 		</div>
 	);

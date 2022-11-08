@@ -1,16 +1,13 @@
 import React from "react";
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import styled from "styled-components";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../constants';
 import TimerBtn from "../components/generic/TimerBtn";
 import { calcWorkoutTime, calcTotalFastForwardTime, isWorkoutCompleted } from "../utils/helpers";
 import { TimerContext } from '../components/timers/TimerProvider';
 import DisplayTime from "../components/generic/DisplayTime";
-import Stopwatch from "../components/timers/Stopwatch";
-import Countdown from "../components/timers/Countdown";
-import XY from "../components/timers/XY";
-import Tabata from "../components/timers/Tabata";
+
 
 const Timers = styled.div`
   display: flex;

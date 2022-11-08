@@ -1,11 +1,15 @@
 import React, { useState, createContext } from 'react';
 import { timers } from '../../views/WorkoutView';
+
+/* keep these for now - remove when initial_timers structure removed */
 import Stopwatch from "./Stopwatch";
 import Countdown from "./Countdown";
 import XY from "./XY";
 import Tabata from "./Tabata";
+/************************/
 
 export const TimerContext = createContext({});
+
 
 const TimerProvider = ({ children }) => {
   // workout - hard-coded for now

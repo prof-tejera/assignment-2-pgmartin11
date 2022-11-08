@@ -1,15 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
-import TimerBtn from "../../components/generic/TimerBtn";
-import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
-import SetterButtons from "../../components/helpers/SetterButtons";
+import { useEffect, useContext } from 'react';
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
-import { incrementHelper, decrementHelper } from "../../utils/helpers";
 import { TimerContext } from './TimerProvider';
 
 
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
-	const { count, setCount, round, setRound, setInterv, isPaused, isStopped, setStopped, activeTimerIdx, setActiveTimerIdx, timers, setTimers, dispatcher, remainingTime, setRemainingTime } = useContext(TimerContext);
+	const { count, setCount, round, setRound, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
 
 	useEffect(() => {
 		let t;

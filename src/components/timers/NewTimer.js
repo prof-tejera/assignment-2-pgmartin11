@@ -146,7 +146,7 @@ const NewTimer = () => {
 	}
 
 	return (
-		<div className="main-panel">
+		<div className="config-panel">
 				<h1>Add Timer</h1>
 				<label>Pick your choice of timer:
 					<select value={type} onChange={(e) => { setType(e.target.value); }}>

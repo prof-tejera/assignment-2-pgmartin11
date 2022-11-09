@@ -1,10 +1,11 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react'; /** added useRef **/
 import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
 
 
 const InnerStopwatch = ({ startVal, endVal }) => {
-	const {  count, setCount, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const { count, setCount, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const posRef = useRef();
 
 	useEffect(() => {
 		let t;
@@ -18,16 +19,15 @@ const InnerStopwatch = ({ startVal, endVal }) => {
 			}
 
 			if (count == endVal) {
-				dispatcher();
+				dispatcher(posRef);
 			}
 		}
 
 		return () => { if (t) { clearTimeout(t); } }
 	}, [count, endVal, isPaused, isStopped]);
 
-
 	return (
-		<div className="main-panel">
+		<div className="main-panel" ref={posRef}>
 			<DisplayTime label="Count" count={count} />
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
 import DisplayTime from "../../components/generic/DisplayTime";
 import { TimerContext } from './TimerProvider';
@@ -6,6 +6,7 @@ import { TimerContext } from './TimerProvider';
 
 const InnerCountdown = ({ startVal, endVal }) => {
 	const { count, setCount, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const posRef = useRef();
 
 	useEffect(() => {
 		let t;
@@ -19,7 +20,7 @@ const InnerCountdown = ({ startVal, endVal }) => {
 			}
 
 			if (count == 0) {
-				dispatcher();
+				dispatcher(posRef);
 			}
 		}
 
@@ -29,7 +30,7 @@ const InnerCountdown = ({ startVal, endVal }) => {
 	const pauseLabel = isPaused ? "Resume" : "Pause"; 
 
 	return (
-		<div className="main-panel">
+		<div className="main-panel" ref={posRef}>
 			<DisplayTime label="Count" count={count} />
 		</div>
 	);

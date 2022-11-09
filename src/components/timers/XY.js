@@ -1,11 +1,13 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
 import { TimerContext } from './TimerProvider';
 
 
 const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
-	const { count, setCount, round, setRound, isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const { count, setCount, round, setRound, isPaused, isStopped, 
+		remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const posRef = useRef();
 
 	useEffect(() => {
 		let t;
@@ -26,7 +28,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 			}
 
 			if (round == 1 && count == 0) {
-				dispatcher();
+				dispatcher(posRef);
 			}
 		}
 
@@ -39,7 +41,7 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 	const valClass = !isStopped ? 'time-setter-val disabled' : 'time-setter-val';
 
 	return (
-		<div className="main-panel">
+		<div className="main-panel" ref={posRef}>
 			<DisplayTime label="Count" count={count} />
 			<DisplayRound round={round} />
 		</div>

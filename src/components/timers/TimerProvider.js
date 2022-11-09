@@ -39,7 +39,7 @@ const TimerProvider = ({ children }) => {
       setTimers(newTs); 
   }
 
-  const dispatcher = () => {
+  const dispatcher = (posRef) => {
     if (activeTimerIdx+1 < timers.length) {
       markTimerComplete();
       setCount(timers[activeTimerIdx+1].startVal);
@@ -52,6 +52,7 @@ const TimerProvider = ({ children }) => {
       }
 
       setActiveTimerIdx(activeTimerIdx+1);
+      posRef.current.scrollIntoView({ behavior: 'smooth' });
     } else {
       markTimerComplete();
       setStopped(true);

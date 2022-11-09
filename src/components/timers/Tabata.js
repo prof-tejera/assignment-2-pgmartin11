@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
 import { TimerContext } from './TimerProvider';
@@ -7,6 +7,7 @@ import { TimerContext } from './TimerProvider';
 const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalStartVal, intervalEndVal }) => {
 	const { count, setCount, round, setRound, interval, setInterv, 
 		isPaused, isStopped, remainingTime, setRemainingTime, dispatcher } = useContext(TimerContext);
+	const posRef = useRef();
 
 	useEffect(() => {
 		let t;
@@ -39,7 +40,7 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 			}
 
 			if (round == 1 && count == 0 && interval == 0) {
-				dispatcher();
+				dispatcher(posRef);
 			}
 		}
 
@@ -53,7 +54,7 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 	const valClass = !isStopped ? 'time-setter-val disabled' : 'time-setter-val';
 
 	return (
-		<div className="main-panel">
+		<div className="main-panel" ref={posRef}>
 			<DisplayTime label="Count" count={count} />
 			<DisplayTime label="Interval" count={interval} />
 			<DisplayRound round={round} />

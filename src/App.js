@@ -1,9 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import TimerProvider from "./components/timers/TimerProvider";
 import NewTimer from "./components/timers/NewTimer";
 import WorkoutView from "./views/WorkoutView";
+import { PATHS } from "./constants";
+
 
 const Container = styled.div`
   background: #f0f6fb;
@@ -11,30 +13,15 @@ const Container = styled.div`
   overflow: auto;
 `;
 
-// fix this...
-const Nav = () => {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Timers</Link>
-        </li>
-        <li>
-          <Link to="/docs">Documentation</Link>
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
 const App = () => {
   return (
-    <Container> {/* styling */}
+    <Container>
       <TimerProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<WorkoutView />} />
-            <Route path="/add" element={<NewTimer />} />
+            <Route path={PATHS.HOME} element={<WorkoutView />} />
+            <Route path={PATHS.ADD} element={<NewTimer />} />
+            <Route path="*" element={<Navigate to={PATHS.HOME} />} />
           </Routes>
         </Router>
       </TimerProvider>

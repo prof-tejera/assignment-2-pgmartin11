@@ -120,3 +120,37 @@ button:disabled {
         min-width: 185px;
     }    
 }
+
+.main-wrap {
+    overflow: hidden;
+    background-color: #f0f6fb;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.control-btn-wrapper {
+    margin: 10px 15px;
+    width: 285px;
+}
+
+.t-total,
+.t-remaining {
+    position: fixed;
+    top: 15px;
+    font-size: 22px;
+}
+
+.t-total {
+    left: 40%;
+}
+
+.t-remaining {
+    left: 38%;
+}
+
+.add-timer {
+    position: fixed;
+    top: 70px;
+    left: 102px;
+}

@@ -13,6 +13,7 @@ const Timers = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 85px;
 `;
 
 const Timer = styled.div`
@@ -58,61 +59,63 @@ const WorkoutView = () => {
   return (
     <>
       {timers.length > 0 &&
-        <div className="control-btn-wrapper">
-          {isStopped &&
-            <TimerBtn label="Start" handler={() => { 
-              const newTs = timers.map((timer, i) => {
-                  return {...timer, isRunning: false, isCompleted: false };
-              });
-              setTimers(newTs);
-              setCount(timers[0].startVal);
-
-              if (timers[0].title == 'XY' || timers[0].title == 'Tabata') {
-                setRound(timers[0].roundStartVal);
-              }
-              if (timers[0].title == 'Tabata') { 
-                setInterv(timers[0].intervalStartVal); 
-              }
-
-              setActiveTimerIdx(0);
-              setStopped(false); 
-              setPaused(false); }}
-            />
-          }
-          {!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-          <TimerBtn disabled={isStopped} 
-              label="Reset" 
-              handler={() => { 
+        <div class="main-wrap">
+          <div className="control-btn-wrapper">
+            {isStopped &&
+              <TimerBtn label="Start" handler={() => { 
                 const newTs = timers.map((timer, i) => {
                     return {...timer, isRunning: false, isCompleted: false };
                 });
                 setTimers(newTs);
-                setStopped(true);
-                setActiveTimerIdx(999); /* a kludge but works */
-              }}
-          />
-          <TimerBtn disabled={isStopped} 
-              label="Fast Forward" 
-              handler={() => { 
-                if(!isStopped) { 
-                    setCount(timers[activeTimerIdx].endVal);
+                setCount(timers[0].startVal);
 
-                    if (timers[activeTimerIdx].title == 'XY' || timers[activeTimerIdx].title == 'Tabata') {
-                      setRound(timers[activeTimerIdx].roundEndVal);
-                    }
-                    if (timers[activeTimerIdx].title == 'Tabata') { 
-                      setInterv(timers[activeTimerIdx].intervalEndVal);
-                    }
-
-                    setRemainingTime(workoutRunningTime.current - calcTotalFastForwardTime(timers, activeTimerIdx));
+                if (timers[0].title == 'XY' || timers[0].title == 'Tabata') {
+                  setRound(timers[0].roundStartVal);
                 }
-              }}
-          />
+                if (timers[0].title == 'Tabata') { 
+                  setInterv(timers[0].intervalStartVal); 
+                }
+
+                setActiveTimerIdx(0);
+                setStopped(false); 
+                setPaused(false); }}
+              />
+            }
+            {!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+            <TimerBtn disabled={isStopped} 
+                label="Reset" 
+                handler={() => { 
+                  const newTs = timers.map((timer, i) => {
+                      return {...timer, isRunning: false, isCompleted: false };
+                  });
+                  setTimers(newTs);
+                  setStopped(true);
+                  setActiveTimerIdx(999); /* a kludge but works */
+                }}
+            />
+            <TimerBtn disabled={isStopped} 
+                label="Fast Forward" 
+                handler={() => { 
+                  if(!isStopped) { 
+                      setCount(timers[activeTimerIdx].endVal);
+
+                      if (timers[activeTimerIdx].title == 'XY' || timers[activeTimerIdx].title == 'Tabata') {
+                        setRound(timers[activeTimerIdx].roundEndVal);
+                      }
+                      if (timers[activeTimerIdx].title == 'Tabata') { 
+                        setInterv(timers[activeTimerIdx].intervalEndVal);
+                      }
+
+                      setRemainingTime(workoutRunningTime.current - calcTotalFastForwardTime(timers, activeTimerIdx));
+                  }
+                }}
+            />
+          </div>
         </div>
       }
       {isStopped && <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />}
-      {isStopped && !isWorkoutDone && <DisplayTime label="Total time" count={calcWorkoutTime(timers)} />}
-      {(!isStopped || isWorkoutDone) && <DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} />}
+      {isStopped && !isWorkoutDone && <span className="t-total"><DisplayTime label="Total time" count={calcWorkoutTime(timers)} /></span>}
+      {(!isStopped || isWorkoutDone) && <span className="t-remaining"><DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} /></span>}
       <Timers>
         {timers.length == 0 && <h1>No timers configured</h1>}
         {timers.map((timerData, idx) => (

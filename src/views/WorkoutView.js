@@ -13,7 +13,6 @@ const Timers = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 85px;
 `;
 
 const Timer = styled.div`
@@ -119,13 +118,13 @@ const WorkoutView = () => {
       <Timers>
         {timers.length == 0 && <h1>No timers configured</h1>}
         {timers.map((timerData, idx) => (
-          <React.Fragment key={`wrap-${timerData.title}-${idx}`} >
+          <div className="timer-wrapper" key={`wrap-${timerData.title}-${idx}`} >
             {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="Delete" />}
             <Timer key={`timer-${timerData.title}-${idx}`}>
               <TimerTitle>{timerData.title}</TimerTitle>
               <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />
             </Timer>
-          </React.Fragment>
+          </div>
         ))}
       </Timers>
     </>

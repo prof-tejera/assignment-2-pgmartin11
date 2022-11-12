@@ -21,10 +21,8 @@ const InnerXY = ({ startVal, endVal, roundStartVal, roundEndVal }) => {
 			}
 
 			if ((round-1 > 0) && count == 0) {
-				t = setTimeout(() => {
-				  setRound(round-1);
-				  setCount(startVal);
-				}, 1000)
+			    setRound(round-1);
+			    setCount(startVal);
 			}
 
 			if (round == 1 && count == 0) {

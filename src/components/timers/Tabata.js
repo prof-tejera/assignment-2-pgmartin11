@@ -32,11 +32,9 @@ const InnerTabata = ({ startVal, endVal, roundStartVal, roundEndVal, intervalSta
 			}
 	 
 			if ((round-1 > 0) && (count == 0) && (interval == 0)) {
-				t = setTimeout(() => {
-					setRound(round-1);
-					setCount(startVal);
-					setInterv(intervalStartVal);
-				}, 1000)
+				setRound(round-1);
+				setCount(startVal);
+				setInterv(intervalStartVal);
 			}
 
 			if (round == 1 && count == 0 && interval == 0) {

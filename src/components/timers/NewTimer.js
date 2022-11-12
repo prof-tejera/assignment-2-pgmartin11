@@ -123,9 +123,7 @@ const NewTimer = () => {
 		case 'XY':
 			setters = (
 				<>
-					<SetterButtons {...setterBtnData} />
-					<br/>
-					<br/>
+					<div className="interval-wrapper"><SetterButtons {...setterBtnData} /></div>
 					<span className="time-setter-title"> Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
 					<span className="time-setter-val">{countRounds}</span>
 					<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
@@ -137,7 +135,6 @@ const NewTimer = () => {
 				<>
 					<div className="interval-wrapper"><SetterButtons {...setterBtnData} /></div>
 					<div className="interval-wrapper"><SetterButtons {...setterIntervalBtnData} /></div>
-					<br/>
 					<span className="time-setter-title">Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
 					<span className="time-setter-val">{countRounds}</span>
 					<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
@@ -148,7 +145,7 @@ const NewTimer = () => {
 	return (
 		<div className="config-panel">
 				<h1>Add Timer</h1>
-				<label>Pick your choice of timer:
+				<label><span className="type-label">Choose type:</span>
 					<select value={type} onChange={(e) => { setType(e.target.value); }}>
 						<option value="">--</option>
 						<option value="Countdown">Countdown</option>
@@ -158,11 +155,10 @@ const NewTimer = () => {
 					</select>
 				</label>
 				<br/>
-				{setters}
+				{type && <div className="setter-wrapper">{setters}</div>}
 				<br/>
-				{/* <input type="submit" value="Submit" /> */}
 				{type && <button className="" onClick={addTimer}>Add Timer</button>}
-      		<TimerBtn handler={() => navigate(PATHS.HOME)} label="Return to workout" />
+      		<TimerBtn handler={() => navigate(PATHS.HOME)} label="Back to workout" />
 		</div>
 	);
 }

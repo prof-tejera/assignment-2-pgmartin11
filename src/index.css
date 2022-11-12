@@ -43,9 +43,9 @@ span.time-setter-val.disabled {
     color: gray;
 }
 
-.main-panel span.time-category {
-    min-width: 85px;
+.time-category {
     display: inline-block;
+    padding-right: 5px;
 }
 
 .control-btn-wrapper {
@@ -134,19 +134,31 @@ button:disabled {
     width: 285px;
 }
 
+.timer-wrapper {
+    position: relative;
+    width: 255px;
+}
+
+.delete {
+    position: absolute;
+    top: 15px;
+    right: 14px;
+    background-color: #fac384;
+}
+
 .t-total,
 .t-remaining {
     position: fixed;
-    top: 15px;
+    top: 110px;
     font-size: 22px;
 }
 
 .t-total {
-    left: 40%;
+    left: 60px;
 }
 
 .t-remaining {
-    left: 38%;
+    left: 35px;
 }
 
 .add-timer {

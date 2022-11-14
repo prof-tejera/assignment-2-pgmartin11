@@ -41,12 +41,15 @@ export const calcHMS = (count) => {
 }
 
 /* 
- * derive hours, minutes, seconds from seconds passed in 
+ * derive seconds from hours, minutes, seconds passed in 
  */
 export const calcSeconds = (hrs, mins, secs) => {
     return hrs * 60 * 60 + mins * 60 + secs;
 }
 
+/*
+ * calculate total time of all configured timers
+ */
 export const calcWorkoutTime = (timers) => {
     let totalTime = 0;
     timers.forEach((timerData, idx) => totalTime += timers[idx].timerSecs );
@@ -54,6 +57,10 @@ export const calcWorkoutTime = (timers) => {
     return totalTime;
 }
 
+/*
+ * calculate total elapsed time of all timers up to and including timer 
+ * on which Fast Forward button was pressed
+ */
 export const calcTotalFastForwardTime = (timers, activeTimerIdx) => {
     let totalFFTime = 0;
 
@@ -64,6 +71,9 @@ export const calcTotalFastForwardTime = (timers, activeTimerIdx) => {
     return totalFFTime;
 }
 
+/*
+ * check if all timers are completed
+ */
 export const isWorkoutCompleted = (timers) => {
     return !timers.some(timer => timer.isCompleted === false);
 }

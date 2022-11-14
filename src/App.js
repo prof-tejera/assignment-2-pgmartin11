@@ -7,28 +7,12 @@ import WorkoutView from "./views/WorkoutView";
 import DocumentationView from "./views/DocumentationView";
 import { PATHS } from "./constants";
 
+
 const Container = styled.div`
   background: #f0f6fb;
   height: 100vh;
   overflow: auto;
 `;
-
-/*
-const Nav = () => {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <Link to={PATHS.HOME}>Timers</Link>
-        </li>
-        <li>
-          <Link to={PATHS.ADD}>Add Timer</Link>
-        </li>
-      </ul>
-    </nav>
-  );
-};
-*/
 
 const App = () => {
   return (

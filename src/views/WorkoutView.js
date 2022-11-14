@@ -118,7 +118,7 @@ const WorkoutView = () => {
       <Timers>
         {timers.length == 0 && <><h2>No timers configured</h2><p className="add-timer-wrapper">Please <a href={PATHS.ADD}>add a timer</a></p></>}
         {timers.map((timerData, idx) => (
-          <div className="timer-wrapper" key={`wrap-${timerData.title}-${idx}`} >
+          <div className={'timer-wrapper '+(idx===activeTimerIdx && (!isStopped || isWorkoutDone)?'isActive':'')} key={`wrap-${timerData.title}-${idx}`} >
             {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="X" />}
             <Timer key={`timer-${timerData.title}-${idx}`}>
               <TimerTitle>{timerData.title}</TimerTitle>

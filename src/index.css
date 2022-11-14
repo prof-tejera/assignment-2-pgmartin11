@@ -139,6 +139,10 @@ button:disabled {
     width: 255px;
 }
 
+.timer-wrapper.isActive > div {
+    border: 2px solid red;
+}
+
 .x {
     position: absolute;
     top: 15px;

@@ -58,7 +58,7 @@ const WorkoutView = () => {
   return (
     <>
       {timers.length > 0 &&
-        <div class="main-wrap">
+        <div className="main-wrap">
           <div className="control-btn-wrapper">
             {isStopped &&
               <TimerBtn label="Start" handler={() => { 
@@ -112,14 +112,14 @@ const WorkoutView = () => {
           </div>
         </div>
       }
-      {isStopped && <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />}
-      {isStopped && !isWorkoutDone && <span className="t-total"><DisplayTime label="Total time" count={calcWorkoutTime(timers)} /></span>}
-      {(!isStopped || isWorkoutDone) && <span className="t-remaining"><DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} /></span>}
+      {timers.length > 0 && isStopped && <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />}
+      {timers.length > 0 && isStopped && !isWorkoutDone && <span className="t-total"><DisplayTime label="Total time" count={calcWorkoutTime(timers)} /></span>}
+      {timers.length > 0 && (!isStopped || isWorkoutDone) && <span className="t-remaining"><DisplayTime label="Time remaining" count={isWorkoutDone ? 0 : remainingTime} /></span>}
       <Timers>
-        {timers.length == 0 && <h1>No timers configured</h1>}
+        {timers.length == 0 && <><h2>No timers configured</h2><p className="add-timer-wrapper">Please <a href={PATHS.ADD}>add a timer</a></p></>}
         {timers.map((timerData, idx) => (
           <div className="timer-wrapper" key={`wrap-${timerData.title}-${idx}`} >
-            {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="Delete" />}
+            {isStopped && <TimerBtn key={`del-btn-${timerData.title}-${idx}`} handler={() => removeTimer(idx)} label="X" />}
             <Timer key={`timer-${timerData.title}-${idx}`}>
               <TimerTitle>{timerData.title}</TimerTitle>
               <timerData.component {...timerData} isRunning={idx === activeTimerIdx} />

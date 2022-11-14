@@ -1,13 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
 import DocumentComponent from "../components/documentation/DocumentComponent";
-
-import Loading from "../components/generic/Loading";
-import DisplayTime from "../components/generic/DisplayTime";
-import DisplayRound from "../components/generic/DisplayRound";
-import TimerBtn from "../components/generic/TimerBtn";
-
 
 const Container = styled.div`
   display: flex;
@@ -19,67 +12,110 @@ const Title = styled.div`
   font-size: 2rem;
 `;
 
+
 /**
  * You can document your components by using the DocumentComponent component
  */
 const Documentation = () => {
-  if (true) return <h1>Hello</h1>;
-  
   return (
     <Container>
       <div>
         <Title>Documentation</Title>
         <DocumentComponent
-          title="DisplayTime: show counter value in hours, minutes, seconds format"
-          component={<DisplayTime label="Counter" count={363} />}
+          title="Stopwatch Timer"
           propDocs={[
             {
-              prop: "label",
-              description: "Label for the counter metric",
-              type: "string",
+              prop: "startVal",
+              description: "Counter starting value in seconds",
+              type: "integer",
               defaultValue: "N/A",
             },
             {
-              prop: "count",
-              description: "Counter time in seconds",
+              prop: "endVal",
+              description: "Counter ending value in seconds",
               type: "integer",
               defaultValue: "N/A",
             },
           ]}
         />
         <DocumentComponent
-          title="DisplayRound: display round number"
-          component={<DisplayRound round={1}/>}
+          title="Countdown Timer"
           propDocs={[
             {
-              prop: "round",
-              description: "Represents the current round",
+              prop: "startVal",
+              description: "Counter starting value in seconds",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "endVal",
+              description: "Counter ending value in seconds",
               type: "integer",
               defaultValue: "N/A",
             },
           ]}
         />
-        <DocumentComponent 
-          title="TimerBtn: timer button"
-          component={<TimerBtn label="Resume" handler={f=>f} disabled={false}/>} 
+        <DocumentComponent
+          title="XY Timer"
           propDocs={[
             {
-              prop: "label",
-              description: "Button label",
-              type: "string",
+              prop: "startVal",
+              description: "Counter starting value in seconds",
+              type: "integer",
               defaultValue: "N/A",
             },
             {
-              prop: "handler",
-              description: "Button click handler",
-              type: "function",
+              prop: "endVal",
+              description: "Counter ending value in seconds",
+              type: "integer",
               defaultValue: "N/A",
             },
             {
-              prop: "disabled",
-              description: "Represents the button state, enabled or disabled",
-              type: "boolean",
-              defaultValue: "false",
+              prop: "roundStartVal",
+              description: "Round starting value",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "roundEndVal",
+              description: "Round ending value",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+          ]}
+        />
+        <DocumentComponent
+          title="Tabata Timer"
+          propDocs={[
+            {
+              prop: "startVal",
+              description: "Counter starting value in seconds",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "endVal",
+              description: "Counter ending value in seconds",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "roundStartVal",
+              description: "Round starting value",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "intervalStartVal",
+              description: "Interval starting value in seconds",
+              type: "integer",
+              defaultValue: "N/A",
+            },
+            {
+              prop: "intervalEndVal",
+              description: "Interval ending value in seconds",
+              type: "integer",
+              defaultValue: "N/A",
             },
           ]}
         />

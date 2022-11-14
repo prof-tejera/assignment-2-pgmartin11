@@ -139,10 +139,14 @@ button:disabled {
     width: 255px;
 }
 
-.delete {
+.x {
     position: absolute;
     top: 15px;
     right: 14px;
+    background-color: #fac384;
+}
+
+.x:focus {
     background-color: #fac384;
 }
 
@@ -165,4 +169,8 @@ button:disabled {
     position: fixed;
     top: 70px;
     left: 102px;
+}
+
+.add-timer-wrapper {
+    margin-top: 0;
 }

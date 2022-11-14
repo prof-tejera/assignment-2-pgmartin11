@@ -36,6 +36,18 @@ const Documentation = () => {
               type: "integer",
               defaultValue: "N/A",
             },
+            {
+              prop: "isRunning",
+              description: "Indicates if timer is running",
+              type: "boolean",
+              defaultValue: "false",
+            },
+            {
+              prop: "isCompleted",
+              description: "Indicates if timer has completed running",
+              type: "boolean",
+              defaultValue: "false",
+            },
           ]}
         />
         <DocumentComponent
@@ -52,6 +64,18 @@ const Documentation = () => {
               description: "Counter ending value in seconds",
               type: "integer",
               defaultValue: "N/A",
+            },
+            {
+              prop: "isRunning",
+              description: "Indicates if timer is running",
+              type: "boolean",
+              defaultValue: "false",
+            },
+            {
+              prop: "isCompleted",
+              description: "Indicates if timer has completed running",
+              type: "boolean",
+              defaultValue: "false",
             },
           ]}
         />
@@ -81,6 +105,18 @@ const Documentation = () => {
               description: "Round ending value",
               type: "integer",
               defaultValue: "N/A",
+            },
+            {
+              prop: "isRunning",
+              description: "Indicates if timer is running",
+              type: "boolean",
+              defaultValue: "false",
+            },
+            {
+              prop: "isCompleted",
+              description: "Indicates if timer has completed running",
+              type: "boolean",
+              defaultValue: "false",
             },
           ]}
         />
@@ -116,6 +152,18 @@ const Documentation = () => {
               description: "Interval ending value in seconds",
               type: "integer",
               defaultValue: "N/A",
+            },
+            {
+              prop: "isRunning",
+              description: "Indicates if timer is running",
+              type: "boolean",
+              defaultValue: "false",
+            },
+            {
+              prop: "isCompleted",
+              description: "Indicates if timer has completed running",
+              type: "boolean",
+              defaultValue: "false",
             },
           ]}
         />

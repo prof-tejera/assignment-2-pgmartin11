@@ -54,7 +54,11 @@ const TimerProvider = ({ children }) => {
       setActiveTimerIdx(activeTimerIdx+1);
       posRef.current.scrollIntoView({ behavior: 'smooth' });
     } else {
-      markTimerComplete();
+      // mark all timers complete
+      const newTs = timers.map((timer, i) => {
+        return {...timer, isRunning: false, isCompleted: false };
+      });
+      setTimers(newTs);
       setStopped(true);
     }
   }

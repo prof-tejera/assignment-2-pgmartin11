@@ -36,7 +36,7 @@ const InnerCountdown = ({ startVal, endVal }) => {
 	);
 }
 
-const Countdown = ({ startVal, endVal, roundStartVal, roundEndVal, isRunning=false, isCompleted=false }) => {
+const Countdown = ({ startVal, endVal, isRunning=false, isCompleted=false }) => {
 
 	if (!isRunning || isCompleted) {
 		return (

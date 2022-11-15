@@ -1,12 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import styled from "styled-components";
 import TimerProvider from "./components/timers/TimerProvider";
 import NewTimer from "./components/timers/NewTimer";
 import WorkoutView from "./views/WorkoutView";
 import DocumentationView from "./views/DocumentationView";
 import { PATHS } from "./constants";
-
 
 const Container = styled.div`
   background: #f0f6fb;

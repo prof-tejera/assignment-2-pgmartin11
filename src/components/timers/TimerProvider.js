@@ -1,8 +1,7 @@
-import React, { useState, createContext } from 'react';
-import { timers } from '../../views/WorkoutView';
+import React, { useState, createContext } from "react";
+import { timers } from "../../views/WorkoutView";
 
 export const TimerContext = createContext({});
-
 
 const TimerProvider = ({ children }) => {
   const [count, setCount] = useState(0);
@@ -15,43 +14,46 @@ const TimerProvider = ({ children }) => {
   const [isStopped, setStopped] = useState(true);
 
   const markTimerComplete = () => {
-      const newTs = timers.map((timer, i) => {
-        if (i == activeTimerIdx) {
-          return {...timer, isCompleted: true };
-        }
-        return timer;
-      });
-      setTimers(newTs); 
-  }
+    const newTs = timers.map((timer, i) => {
+      if (i == activeTimerIdx) {
+        return { ...timer, isCompleted: true };
+      }
+      return timer;
+    });
+    setTimers(newTs);
+  };
 
   const dispatcher = (posRef) => {
-    if (activeTimerIdx+1 < timers.length) {
+    if (activeTimerIdx + 1 < timers.length) {
       markTimerComplete();
-      setCount(timers[activeTimerIdx+1].startVal);
+      setCount(timers[activeTimerIdx + 1].startVal);
 
-      if (timers[activeTimerIdx+1].title == 'XY' || timers[activeTimerIdx+1].title == 'Tabata') {
-        setRound(timers[activeTimerIdx+1].roundStartVal);
+      if (
+        timers[activeTimerIdx + 1].title == "XY" ||
+        timers[activeTimerIdx + 1].title == "Tabata"
+      ) {
+        setRound(timers[activeTimerIdx + 1].roundStartVal);
       }
-      if (timers[activeTimerIdx+1].title == 'Tabata') { 
-        setInterv(timers[activeTimerIdx+1].intervalStartVal); 
+      if (timers[activeTimerIdx + 1].title == "Tabata") {
+        setInterv(timers[activeTimerIdx + 1].intervalStartVal);
       }
 
-      setActiveTimerIdx(activeTimerIdx+1);
-      posRef.current.scrollIntoView({ behavior: 'smooth' });
+      setActiveTimerIdx(activeTimerIdx + 1);
+      posRef.current.scrollIntoView({ behavior: "smooth" });
     } else {
       // mark all timers complete
       const newTs = timers.map((timer, i) => {
-        return {...timer, isRunning: false, isCompleted: false };
+        return { ...timer, isRunning: false, isCompleted: false };
       });
       setTimers(newTs);
       setStopped(true);
     }
-  }
+  };
 
   return (
     <TimerContext.Provider
       value={{
-        count, 
+        count,
         setCount,
         round,
         setRound,
@@ -67,7 +69,7 @@ const TimerProvider = ({ children }) => {
         setTimers,
         remainingTime,
         setRemainingTime,
-        dispatcher
+        dispatcher,
       }}
     >
       {children}

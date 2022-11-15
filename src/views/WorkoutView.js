@@ -116,7 +116,8 @@ const WorkoutView = () => {
                 });
                 setTimers(newTs);
                 setStopped(true);
-                setActiveTimerIdx(999); /* a kludge but works */
+                // fix a race condition by setting index out of range
+                setActiveTimerIdx(999);
               }}
             />
             <TimerBtn

@@ -166,7 +166,7 @@ const WorkoutView = () => {
       <Timers>
         {timers.length == 0 && (
           <>
-            <h2>No timers configured</h2>
+            <h2>No workout configured</h2>
             <p className="add-timer-wrapper">
               Please <a href={PATHS.ADD}>add a timer</a>
             </p>

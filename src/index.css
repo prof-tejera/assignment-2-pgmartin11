@@ -45,6 +45,7 @@ span.time-setter-val.disabled {
 .time-category {
   display: inline-block;
   padding-right: 5px;
+  min-width: 85px;
 }
 
 .control-btn-wrapper {
@@ -135,7 +136,7 @@ button:disabled {
 
 .timer-wrapper {
   position: relative;
-  width: 255px;
+  width: 260px;
 }
 
 .timer-wrapper.isActive > div {

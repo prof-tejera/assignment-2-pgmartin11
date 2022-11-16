@@ -174,7 +174,7 @@ const NewTimer = () => {
 
   return (
     <div className="config-panel">
-      <h1>Add Timer</h1>
+      <h1>Add a Timer</h1>
       <label>
         <span className="type-label">Choose type:</span>
         <select

@@ -60,3 +60,7 @@ As you have noticed this repository is empty. To begin this assignment you must 
 ## Bonus
 
 - Add each timer to documentation (3pt)
+
+## Citations
+
+Scrolling behavior for active timer adapted from https://robinvdvleuten.nl/blog/scroll-a-react-component-into-view/

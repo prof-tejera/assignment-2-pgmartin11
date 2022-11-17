@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../constants";
 import DocumentComponent from "../components/documentation/DocumentComponent";
 
 import Loading from "../components/generic/Loading";
@@ -21,9 +23,12 @@ const Title = styled.div`
  * You can document your components by using the DocumentComponent component
  */
 const Documentation = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <div>
+        <TimerBtn handler={() => navigate(PATHS.HOME)} label="To Workout" />
         <Title>Documentation</Title>
         <DocumentComponent
           title="DisplayTime: show counter value in hours, minutes, seconds format"

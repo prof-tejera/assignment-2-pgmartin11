@@ -147,6 +147,7 @@ const WorkoutView = () => {
           </div>
         </div>
       )}
+      <TimerBtn handler={() => navigate(PATHS.DOCS)} label="Documentation" />
       {timers.length > 0 && isStopped && (
         <TimerBtn handler={() => navigate(PATHS.ADD)} label="Add Timer" />
       )}

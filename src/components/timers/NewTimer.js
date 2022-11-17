@@ -199,6 +199,7 @@ const NewTimer = () => {
         </button>
       )}
       <TimerBtn handler={() => navigate(PATHS.HOME)} label="Back to workout" />
+      <TimerBtn handler={() => navigate(PATHS.DOCS)} label="Documentation" />
     </div>
   );
 };

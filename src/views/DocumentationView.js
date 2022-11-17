@@ -63,7 +63,7 @@ const Documentation = () => {
               prop: "label",
               description: "Button label",
               type: "string",
-              defaultValue: "N/A",
+              defaultValue: "sample",
             },
             {
               prop: "handler",

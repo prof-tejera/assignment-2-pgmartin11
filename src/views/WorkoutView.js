@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { PATHS } from "../constants";
 import TimerBtn from "../components/generic/TimerBtn";
 import {
@@ -169,7 +169,7 @@ const WorkoutView = () => {
           <>
             <h2>No workout configured</h2>
             <p className="add-timer-wrapper">
-              Please <a href={PATHS.ADD}>add a timer</a>
+              Please <Link to={PATHS.ADD}>add one or more timers</Link> to get started
             </p>
           </>
         )}

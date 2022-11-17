@@ -194,7 +194,7 @@ const NewTimer = () => {
       {type && <div className="setter-wrapper">{setters}</div>}
       <br />
       {type && (
-        <button className="" onClick={addTimer}>
+        <button className="add-timer-submit" onClick={addTimer}>
           Add Timer
         </button>
       )}

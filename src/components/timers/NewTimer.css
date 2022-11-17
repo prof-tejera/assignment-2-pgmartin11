@@ -27,6 +27,12 @@
   left: 15px;
 }
 
+button.add-timer-submit {
+    width: 242px;
+    padding: 5px;
+    background-color: #ced5e0;
+}
+
 @media (min-width: 855px) {
   .config-panel {
     max-width: 28%;

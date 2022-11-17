@@ -22,7 +22,7 @@ const App = () => {
   return (
     <Container>
       <TimerProvider>
-        <Router>
+        <Router basename="/assignment-2-pgmartin11">
           <Routes>
             <Route path={PATHS.HOME} element={<WorkoutView />} />
             <Route path={PATHS.ADD} element={<NewTimer />} />

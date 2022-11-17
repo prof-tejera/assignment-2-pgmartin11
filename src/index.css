@@ -178,3 +178,10 @@ button:disabled {
 .add-timer-wrapper {
   margin-top: 0;
 }
+
+button.documentation,
+button.to-workout {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+}

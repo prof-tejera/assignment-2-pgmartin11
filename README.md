@@ -10,9 +10,9 @@ We will have move state from our timers and into a global context that will be s
 
 The choice of data structure should be a queue, which follows First-In-First-Out, and supports the normal enqueue (add item to the queue) and dequeue (removes item from the queue). How you implement the queue is up to you, but things to consider are that:
 
-1. Each timer can be in one of three states: running, completed, and not running. You will need a way to keep track of what state the timer is in, so that you can display it accordingly (see the image above) 
+1. Each timer can be in one of three states: running, completed, and not running. You will need a way to keep track of what state the timer is in, so that you can display it accordingly (see the image above)
 2. During configuration, the user can remove any timer from the queue, so you will be supporting deleting
-3. While the timer is running, you will need to either store or dynamically calculate which timer is active. 
+3. While the timer is running, you will need to either store or dynamically calculate which timer is active.
 4. You don't want to clear the configurations as the timers are running. The user should be able to restart the entire workout at anytime
 
 ## Changes to Routing
@@ -36,15 +36,17 @@ Currently we have two routes `/` and `/docs`. We are going to be modifying our `
 
 ## Installing and Running the project
 
-As you have noticed this repository is empty. To begin this assignment you must copy over all of our files from A1 into this repo. **Do not copy over the `.git` directory and the `.gitignore` file.**. 
+As you have noticed this repository is empty. To begin this assignment you must copy over all of our files from A1 into this repo. **Do not copy over the `.git` directory and the `.gitignore` file.**.
 
 ## Deliverable
-- A user can configure (combination of any timers in any order) and execute a workout 
+
+- A user can configure (combination of any timers in any order) and execute a workout
 - All four timers must be functional: stopwatch, countdown, tabata, and XY.
 - Routing must be configured to support the home route (`/`) and add route (`/add`)
-- As you make modifications to your generic components, make sure to update documentation and prop-types. 
+- As you make modifications to your generic components, make sure to update documentation and prop-types.
 
 ## Grading Rubric
+
 - A workout can be configured with any combination of timers
 - Final workout application should be bug free
 - DRY (do not repeat yourself). Try to make sure common code is shared and not copy/pasted
@@ -58,3 +60,7 @@ As you have noticed this repository is empty. To begin this assignment you must 
 ## Bonus
 
 - Add each timer to documentation (3pt)
+
+## Citations
+
+Scrolling behavior for active timer adapted from https://robinvdvleuten.nl/blog/scroll-a-react-component-into-view/
